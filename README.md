@@ -2,11 +2,11 @@
 
 # Indice
 
-1. [Descripción del proyecto](#descripcion)
+1. [Descripción del proyecto](#descripcion-del-proyecto)
 2. [Base de datos]()
-3. [Lista de rutas]()
+3. [Lista de rutas](#)
 
-## Descripción del proyecto ## {#descripcion}
+## Descripción del proyecto 
 
 El proyecto será una API en laravel y el consumo de esta con React.
 
