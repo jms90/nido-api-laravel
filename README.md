@@ -3,8 +3,8 @@
 # Indice
 
 1. [Descripción del proyecto](#descripcion-del-proyecto)
-2. [Base de datos]()
-3. [Lista de rutas](#)
+2. [Base de datos](#base-de-datos)
+3. [Lista de rutas](#lista-de-rutas)
 
 ## Descripción del proyecto 
 
