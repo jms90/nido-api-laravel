@@ -2,11 +2,11 @@
 
 # Indice
 
-1. [Descripción del proyecto](https://www.notion.so/Cajas-nido-dbf270e148644edb8469515050f1e60e)
-2. [Base de datos](https://www.notion.so/Cajas-nido-dbf270e148644edb8469515050f1e60e)
-3. [Lista de rutas](https://www.notion.so/Cajas-nido-dbf270e148644edb8469515050f1e60e)
+1. [Descripción del proyecto](#descripcion)
+2. [Base de datos]()
+3. [Lista de rutas]()
 
-## Descripción del proyecto
+## Descripción del proyecto {:#descripcion}
 
 El proyecto será una API en laravel y el consumo de esta con React.
 
