@@ -6,7 +6,7 @@
 2. [Base de datos]()
 3. [Lista de rutas]()
 
-## Descripción del proyecto {:#descripcion}
+## Descripción del proyecto {#descripcion}
 
 El proyecto será una API en laravel y el consumo de esta con React.
 
