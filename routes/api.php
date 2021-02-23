@@ -23,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::apiResource('projects', CajaController::class)->middleware('auth:api');
+Route::apiResource('cajas', CajaController::class)->middleware('auth:api');
