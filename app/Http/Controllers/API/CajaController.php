@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\API\Caja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Resource\CajaResource;
-use App\Http\Resources\CajaResource as ResourcesCajaResource;
-use App\Models\Caja as ModelsCaja;
+use App\Http\Resources\CajaResource;
+use App\Models\Caja;
 
 class CajaController extends Controller
 {
@@ -19,8 +17,8 @@ class CajaController extends Controller
      */
     public function index()
     {
-        $cajas = ModelsCaja::all();
-        return response(['cajas' => ResourcesCajaResource::collection($cajas), 'message' => 'Retrieved successfully'], 200);
+        $cajas = Caja::all();
+        return response(['cajas' => CajaResource::collection($cajas), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -43,9 +41,9 @@ class CajaController extends Controller
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
 
-        $caja = ModelsCaja::create($data);
+        $caja = Caja::create($data);
 
-        return response(['project' => new ResourcesCajaResource($caja), 'message' => 'Created successfully'], 201);
+        return response(['project' => new CajaResource($caja), 'message' => 'Created successfully'], 201);
     }
 
     /**
@@ -54,9 +52,9 @@ class CajaController extends Controller
      * @param  \App\Models\Caja  $caja
      * @return \Illuminate\Http\Response
      */
-    public function show(ModelsCaja $caja)
+    public function show(Caja $caja)
     {
-        return response(['caja' => new ResourcesCajaResource($caja), 'message' => 'Retrieved successfully'], 200);
+        return response(['caja' => new CajaResource($caja), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -66,11 +64,11 @@ class CajaController extends Controller
      * @param  \App\Models\Caja  $caja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ModelsCaja $caja)
+    public function update(Request $request, Caja $caja)
     {
         $caja->update($request->all());
 
-        return response(['caja' => new ResourcesCajaResource($caja), 'message' => 'Update successfully'], 200);
+        return response(['caja' => new CajaResource($caja), 'message' => 'Update successfully'], 200);
     }
 
 
@@ -80,7 +78,7 @@ class CajaController extends Controller
      * @param  \App\Models\Caja  $caja
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ModelsCaja $caja)
+    public function destroy(Caja $caja)
     {
         $caja->delete();
 
