@@ -19,14 +19,4 @@ class Caja extends Model
         'latitud',
         'longitud'
     ];
-
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'cost' => 'int',
-    ];
 }
