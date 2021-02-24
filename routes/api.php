@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\AveController;
 use App\Http\Controllers\API\CajaController;
 use App\Http\Controllers\API\SeguimientoController;
 use Illuminate\Http\Request;
@@ -25,4 +26,5 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::apiResource('cajas', CajaController::class)->middleware('auth:api');
+Route::apiResource('aves', AveController::class)->middleware('auth:api');
 Route::apiResource('seguimiento', SeguimientoController::class)->middleware('auth:api');
