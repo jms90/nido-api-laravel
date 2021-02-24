@@ -15,8 +15,9 @@ class CreateSeguimientosTable extends Migration
     {
         Schema::create('seguimientos', function (Blueprint $table) {
             $table->id();
-            $table->boolean('estado');
+            $table->string('estado');
             $table->string('descripcion');
+            $table->string('img_seguimiento')->nullable();
             $table->timestamps();
         });
     }

@@ -43,7 +43,7 @@ class CajaController extends Controller
 
         $caja = Caja::create($data);
 
-        return response(['project' => new CajaResource($caja), 'message' => 'Created successfully'], 201);
+        return response(['Caja' => new CajaResource($caja), 'message' => 'Created successfully'], 201);
     }
 
     /**

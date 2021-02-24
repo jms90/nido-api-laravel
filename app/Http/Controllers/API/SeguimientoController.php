@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SeguimientoResource;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Seguimiento;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,8 @@ class SeguimientoController extends Controller
      */
     public function index()
     {
-        //
+        $seguimiento = Seguimiento::all();
+        return response(['Seguimiento' => SeguimientoResource::collection($seguimiento), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -26,7 +29,17 @@ class SeguimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $validator = Validator::make($data, [
+            'estado' => 'required',
+            'descripcion' => 'required',
+            'img_seguimiento'=>'required'
+        ]);
+        if ($validator->fails()) {
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
+        $seguimiento = Seguimiento::created($data);
+        return response(['Seguimiento' => new SeguimientoResource($seguimiento), 'message' => 'Created succesfully'], 201);
     }
 
     /**
@@ -37,7 +50,7 @@ class SeguimientoController extends Controller
      */
     public function show(Seguimiento $seguimiento)
     {
-        //
+        return response(['Seguimiento' => new SeguimientoResource($seguimiento), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -49,7 +62,9 @@ class SeguimientoController extends Controller
      */
     public function update(Request $request, Seguimiento $seguimiento)
     {
-        //
+        $seguimiento->update($request->all());
+
+        return response(['Seguimiento' => new SeguimientoResource($seguimiento), 'message' => 'Update successfully'], 200);
     }
 
     /**
@@ -60,6 +75,7 @@ class SeguimientoController extends Controller
      */
     public function destroy(Seguimiento $seguimiento)
     {
-        //
+        $seguimiento->delete();
+        return response(['message' => 'Deleted']);
     }
 }
