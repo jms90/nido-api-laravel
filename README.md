@@ -1,62 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+/bank
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Indice
 
-## About Laravel
+1. [Descripción del proyecto](#descripcion-del-proyecto)
+2. [Base de datos](#base-de-datos)
+3. [Lista de rutas](#lista-de-rutas)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Descripción del proyecto 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+El proyecto será una API en laravel y el consumo de esta con React.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+La aplicación consistirá en que un usuario registrado podrá registrar una caja-nido indicando su código, longitud y latitud.
 
-## Learning Laravel
+Cada caja podrá tener un seguimiento en el cual se registrará un estado (si está ocupada o no) y una descripción si el usuario lo cree necesario.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Base de datos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+User serán los usuarios que estarán registrados en la base de datos, los datos que tendrá esta tabla serán:
 
-## Laravel Sponsors
+- ID
+- Name
+- Email
+- Password
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Caja serás las cajas que se registran en la base de datos de la API, los datos que tendrá serán:
 
-### Premium Partners
+- ID
+- Cod_caja
+- Longitud
+- Latitud
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+Seguimiento será una tabla relacionada con caja dónde se irán registrando los datos de cada una, los datos que tendrá serán:
 
-## Contributing
+- ID
+- Estado
+- Descripción
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Queda pendiente evaluar si agregar a la base de datos una tabla llamada Ave dónde almacenaremos los datos de éstas u obtendremos los datos desde una API externa.
 
-## Code of Conduct
+## Lista de rutas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- User:
 
-## Security Vulnerabilities
+    Para el registro tendremos la siguiente ruta, en el body de la petición deberemos incluir el name, email, password y password_confirm, está petición si es exitosa nos devolverá un objeto User y un access_token
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    - api/register
 
-## License
+    Para la ruta de login deberemos incluir en el body el email y el password, está petición si es exitosa nos devolverá un objeto User y un access_token
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    - api/login
+- Cajas:
+
+    Para el uso de estas rutas deberemos estar autenticados y mandar las peticiones con el access token cómo Authorization Baerer Token.
+
+    Con la siguiente ruta:
+
+    - api/cajas
+
+    POST: Deberemos incluir en el body el cod_caja, longitud, latitud y crearemos una nueva entrada en nuestra bd.
+
+    GET: Obtendremos todas las cajas de nuestra BD.
+
+    En la siguiente ruta deberemos sustituir 'id:' por el id de la caja:
+
+    - api/cajas/id:
+
+    GET: Obtendremos el objeto caja que coincida con el id que mandamos en nuestra BD.
+
+    PATCH: Actualizaremos el objeto caja que coincida con el id que mandamos en nuestra BD.
+
+    DELETE: Borraremos el objeto caja que coincida con el id que mandamos en nuestra BD.
+
+    Para ruta PATCH deberemos mandar en el body la información que queremos actualizar, ejemplo: "cod_caja":"22-a"
