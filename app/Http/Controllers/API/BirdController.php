@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AveResource;
-use App\Models\Ave;
+use App\Http\Resources\BirdResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\CajaResource;
+use App\Models\Bird;
+use App\Models\Caja;
 
-class AveController extends Controller
+class BirdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +19,8 @@ class AveController extends Controller
      */
     public function index()
     {
-        $aves = Ave::all();
-        return response(['Aves' => AveResource::collection($aves), 'Retrieved successfully'], 200);
+        $birds = Bird::all();
+        return response(['Aves' => BirdResource::collection($birds), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -30,52 +32,58 @@ class AveController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
         $validator = Validator::make($data, [
-            'nombre',
-            'nombre_cientifico',
-            'informacion',
-            'img_ave'
+            'nombre'=>'required',
+            'nombre_cientifico' => 'required',
+            'img_ave' => 'required',
+            'descripcion'=>'required'
         ]);
 
         if ($validator->fails()) {
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
+
+        $bird = Bird::create($data);
+
+        return response(['Bird' => new BirdResource($bird), 'message' => 'Created successfully'], 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Ave  $ave
+     * @param  \App\Models\Bird  $bird
      * @return \Illuminate\Http\Response
      */
-    public function show(Ave $ave)
+    public function show(Bird $bird)
     {
-        return response(['ave' => new AveResource($ave), 'message' => 'Retrieved successfully'], 200);
+        return response(['Ave' => new BirdResource($bird), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Ave  $ave
+     * @param  \App\Models\Bird  $bird
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ave $ave)
+    public function update(Request $request, Bird $bird)
     {
-        $ave->update($request->all());
+        $bird->update($request->all());
 
-        return response(['ave' => new AveResource($ave), 'message' => 'Update succesfully'], 200);
+        return response(['Ave' => new BirdResource($bird), 'message' => 'Update successfully'], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Ave  $ave
+     * @param  \App\Models\Bird  $bird
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ave $ave)
+    public function destroy(Bird $bird)
     {
-        $ave->delete();
+        $bird->delete();
 
         return response(['message' => 'Deleted']);
     }

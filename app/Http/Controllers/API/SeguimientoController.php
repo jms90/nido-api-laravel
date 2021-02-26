@@ -38,7 +38,9 @@ class SeguimientoController extends Controller
         if ($validator->fails()) {
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
-        $seguimiento = Seguimiento::created($data);
+        
+        $seguimiento = Seguimiento::create($data);
+        
         return response(['Seguimiento' => new SeguimientoResource($seguimiento), 'message' => 'Created succesfully'], 201);
     }
 

@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\AveController;
+use App\Http\Controllers\API\BirdController;
 use App\Http\Controllers\API\CajaController;
 use App\Http\Controllers\API\SeguimientoController;
+use App\Http\Resources\AveResource;
+use App\Models\Ave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
+/* Route::get('/ave/{id}', function ($id) {
+    return new AveResource(Ave::findOrFail($id));
+}); */
+Route::apiResource('bird',BirdController::class)->middleware('auth:api');
 Route::apiResource('cajas', CajaController::class)->middleware('auth:api');
-Route::apiResource('aves', AveController::class)->middleware('auth:api');
 Route::apiResource('seguimiento', SeguimientoController::class)->middleware('auth:api');

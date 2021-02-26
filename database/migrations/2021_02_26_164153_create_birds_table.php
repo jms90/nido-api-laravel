@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAvesTable extends Migration
+class CreateBirdsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateAvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('aves', function (Blueprint $table) {
+        Schema::create('birds', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('nombre');
             $table->string('nombre_cientifico');
-            $table->string('informacion');
             $table->string('img_ave');
-            $table->timestamps();
+            $table->string('descripcion');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateAvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aves');
+        Schema::dropIfExists('birds');
     }
 }
